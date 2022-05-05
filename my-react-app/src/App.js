@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [task, setTask] = useState('');
+    const [tasks, setTasks] = useState([]);
+
+    /**
+     * Add new task to task list then clear task input
+     */
+    const addTask = () => {
+        // Add new task
+        if (task)
+            setTasks(prev => {
+                return [...prev, { id: prev.length + 1, content: task }];
+            });
+
+        // Clear task input
+        setTask('');
+    }
+
+    /**
+     * Delete task with corresponding id
+     * 
+     * @param {*} taskId id of the task that needs deleting
+     */
+    const deleteTask = (taskId) => {
+        setTasks(prev => {
+            return prev.filter(task => task.id !== taskId)
+        })
+    }
+
+    return (
+        <div className="App">
+            <h1 className="title">Todo App</h1>
+            <div className="task-field">
+                <input
+                    className="task-input"
+                    type="text"
+                    value={task}
+                    onChange={(e) => setTask(e.target.value)}
+                />
+                <button className="btn" onClick={addTask}>Add task</button>
+            </div>
+            <div className="task-list">
+                <h2 className="list-title">Task list</h2>
+                <ul className="list-items">
+                    {tasks.map(item => (
+                        <li className="item" key={item.id}>
+                            {item.content}
+                            <span className="icon icon-delete" onClick={() => deleteTask(item.id)}></span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
 }
 
 export default App;
