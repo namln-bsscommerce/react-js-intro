@@ -1,0 +1,39 @@
+.App {
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgb(8 7 16 / 60%);
+    padding: 20px;
+    max-width: 768px;
+    max-height: 88vh;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+.App .title {
+    text-align: center;
+}
+
+.App .timer {
+    float: right;
+}
+
+.App .tabs {
+    display: flex;
+    list-style: none;
+    margin-top: 4rem;
+}
+
+.tabs .tab:not(:last-child) {
+    margin-right: .4rem;
+}
+
+.tabs .tab:last-child {
+    margin-right: 6rem;
+}
+
+.App .content {
+    overflow: auto;
+}
