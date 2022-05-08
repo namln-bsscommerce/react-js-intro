@@ -30,15 +30,27 @@ function App() {
         })
     }
 
+    /**
+     * If user hit enter while typing input, trigger the add task action
+     * 
+     * @param {*} event 
+     */
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            addTask();
+        }
+    }
+
     return (
         <div className="App">
             <h1 className="title">Todo App</h1>
             <div className="task-field">
                 <input
                     className="task-input"
+                    onChange={(e) => setTask(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     type="text"
                     value={task}
-                    onChange={(e) => setTask(e.target.value)}
                 />
                 <button className="btn" onClick={addTask}>Add task</button>
             </div>
