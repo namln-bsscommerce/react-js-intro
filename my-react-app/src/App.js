@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 const tabs = ['users', 'companies', 'countries'];
 
 function App() {
-    const [timer, setTimer] = useState(3596);
+    const [timer, setTimer] = useState(0);
     const [items, setItems] = useState([]);
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const [loading, setLoading] = useState(true);
