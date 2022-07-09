@@ -1,0 +1,38 @@
+.app {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+    margin: auto;
+    width: 50%;
+}
+
+.list-task {
+    list-style: none;
+    width: 100%;
+}
+
+.task {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    line-height: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+.remove-task {
+    background-color: #ff6666;
+    border-radius: 5px;
+}
+
+.remove-task:hover {
+    background-color: #f00;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.remove-task:active {
+    background-color: #ff6666;
+    color: #000;
+}
