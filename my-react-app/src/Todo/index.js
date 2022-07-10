@@ -1,53 +1,66 @@
-import { useState } from 'react';
-import { useReducer } from 'react';
+import { useReducer, useRef } from 'react';
 
 import './index.css';
 
 const Todo = () => {
-    const [task, setTask] = useState({ id: 0, name: '' });
+    /**
+     * Initial state
+     * task: the value of the input <=> the task name to be added
+     * tasks: the list of tasks already added and will be displayed
+     */
+    const initState = { task: '', tasks: [] };
 
-    const initTasks = [];
-
+    /**
+     * Actions
+     */
+    const SET_TASK = 'SET_TASK';
     const ADD_TASK = 'ADD_TASK';
     const REMOVE_TASK = 'REMOVE_TASK';
 
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case ADD_TASK:
-                return [...state, action.payload];
-            case REMOVE_TASK:
-                return state.filter((task) => task.id !== action.payload.id);
-            default:
-                throw new Error(`Unhandled action type: ${action.type}`);
-        }
-    };
-
-    const [tasks, dispatch] = useReducer(reducer, initTasks);
+    const inputElement = useRef();
 
     const addTask = () => {
-        if (task.name) {
-            setTask((prevState) => ({
-                id: prevState.id + 1,
-                name: prevState.name
-            }));
-            dispatch({ type: ADD_TASK, payload: task });
-            const taskInput = document.getElementById('task-input');
-            taskInput.value = '';
-            taskInput.focus();
-            setTask((prevState) => ({ id: prevState.id, name: '' }));
+        if (!state.task) return;
+
+        const newTask = {
+            name: state.task
+        };
+
+        if (state.tasks.length === 0) {
+            newTask.id = 0;
+        } else {
+            newTask.id = state.tasks[state.tasks.length - 1].id + 1;
+        }
+
+        dispatch({ type: ADD_TASK, payload: newTask });
+
+        // Clear the input and have it focused
+        dispatch({ type: SET_TASK, payload: '' });
+        inputElement.current.focus();
+    };
+
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case SET_TASK:
+                return { ...state, task: action.payload };
+            case ADD_TASK:
+                return {
+                    ...state,
+                    tasks: [...state.tasks, action.payload]
+                };
+            case REMOVE_TASK:
+                return {
+                    ...state,
+                    tasks: state.tasks.filter(
+                        (task) => task.id !== action.payload
+                    )
+                };
+            default:
+                throw new Error('Unknown action');
         }
     };
 
-    const removeTask = (task) => {
-        dispatch({ type: REMOVE_TASK, payload: task });
-    };
-
-    const updateTaskName = (event) => {
-        setTask((prevState) => ({
-            id: prevState.id,
-            name: event.target.value
-        }));
-    };
+    const [state, dispatch] = useReducer(reducer, initState);
 
     return (
         <div className="app">
@@ -55,9 +68,15 @@ const Todo = () => {
             <div className="action toolbar">
                 <input
                     className="input"
-                    id="task-input"
+                    ref={inputElement}
+                    value={state.task}
                     type="text"
-                    onChange={(event) => updateTaskName(event)}
+                    onChange={(event) =>
+                        dispatch({
+                            type: SET_TASK,
+                            payload: event.target.value
+                        })
+                    }
                 />
                 &emsp;
                 <button className="btn btn-add" onClick={addTask}>
@@ -65,14 +84,13 @@ const Todo = () => {
                 </button>
             </div>
             <ul className="list-task">
-                {tasks.map((task) => (
+                {state.tasks.map((task) => (
                     <li className="task" key={task.id}>
                         <button
                             onClick={() => {
-                                console.log(task);
-                                removeTask({
-                                    id: task.id,
-                                    name: task.name
+                                dispatch({
+                                    type: REMOVE_TASK,
+                                    payload: task.id
                                 });
                             }}
                             id="remove-task"
