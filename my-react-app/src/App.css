@@ -1,0 +1,79 @@
+.App {
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgb(8 7 16 / 60%);
+    padding: 20px;
+    max-width: 768px;
+    min-height: 768px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+.App .title {
+    text-align: center;
+}
+
+.task-field {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.task-field .task-input {
+    font-size: 1rem;
+    margin-right: 1rem;
+    min-width: 20rem;
+    padding: .3rem;
+}
+
+.task-field .task-input:focus {
+    outline: none;
+}
+
+.task-field .btn {
+    font-size: 1rem;
+}
+
+.list-items {
+    max-height: 60vh;
+    padding-right: 20px;
+    overflow-y: auto;
+}
+
+.item::marker {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.item div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1.2rem;
+}
+
+.item div p {
+    display: inline-block;
+    max-width: calc(100% - 2.4rem);
+    overflow-wrap: break-word;
+}
+
+.item .icon-delete:after {
+    font-size: 1.6rem;
+    content: "\00d7";
+    float: right;
+    transition-duration: 0.3s;
+}
+
+.item .icon-delete:hover::after {
+    cursor: pointer;
+    color: red;
+    font-size: 2.4rem;
+    font-weight: bold;
+}
+
+.item .icon-delete:active::after {
+    color: initial;
+}
