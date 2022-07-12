@@ -1,0 +1,11 @@
+.App {
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-left: 40px;
+    padding: 10px 20px;
+}
